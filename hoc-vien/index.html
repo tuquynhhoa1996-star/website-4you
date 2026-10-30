@@ -44,6 +44,9 @@ body.khoa #login{display:flex}body.khoa header,body.khoa main,body.khoa footer{d
 .tab-dn button{border:0;border-radius:10px;padding:11px 8px;font-weight:700;font-size:14.5px;background:none;color:var(--mo);cursor:pointer}
 .tab-dn button.on{background:var(--chanh);color:var(--toi)}
 body.ph #nav a[data-k=xephang]{display:none}
+body.khach #nav a[data-k=""],body.khach #nav a[data-k=xephang],body.khach #nav a[data-k=dangky]{display:none}
+.o-nam{margin-top:12px}.o-nam select{width:100%;min-height:52px;border-radius:14px;border:1.5px solid var(--vien2);background:var(--toi);color:#fff;font-size:17px;padding:0 14px;margin-top:6px}
+.xem-giai{display:block;text-align:center;margin-top:14px;color:var(--chanh);font-weight:700;text-decoration:none}
 .o-mk{position:relative}
 .o-mk input{width:100%;min-height:54px;padding:12px 70px 12px 16px;border-radius:14px;border:1.5px solid var(--vien2);background:var(--toi);color:#fff;font-size:17px;outline:0}
 .o-mk input::placeholder{color:#7f9c89}
@@ -394,9 +397,11 @@ html.nhung .tran.le{background:#fffaf0;border-color:#ecd28a}
   <div class="tab-dn"><button type="button" id="tph" class="on" onclick="cheDo('ph')">Phụ huynh</button><button type="button" id="tnb" onclick="cheDo('nb')">Nội bộ 4YOU</button></div>
   <label for="mk" id="nhan">Số điện thoại phụ huynh</label>
   <div class="o-mk"><input id="mk" type="tel" inputmode="tel" autocomplete="tel" placeholder="Ví dụ 0912345678" required><button type="button" id="hienmk" style="display:none" onclick="const i=$('#mk');i.type=i.type=='password'?'text':'password';this.textContent=i.type=='password'?'Hiện':'Ẩn'">Hiện</button></div>
+  <div class="o-nam" id="onam"><label for="nam">Năm sinh của con</label><select id="nam"></select></div>
   <button class="nut-dn" id="nutdn">Đăng nhập</button>
   <div class="loi-dn" id="loidn"></div>
-  <div class="ghi" id="ghidn">Nhập đúng số điện thoại đã đăng ký học ở 4YOU để xem hồ sơ và điểm năng lực của con. Mỗi số chỉ mở được hồ sơ của con mình.</div>
+  <div class="ghi" id="ghidn">Nhập số điện thoại đã đăng ký học ở 4YOU và năm sinh của con. Người khác biết số điện thoại mà không đúng năm sinh thì không mở được hồ sơ.</div>
+  <a class="xem-giai" href="#/giai">Xem lịch thi đấu, bảng xếp hạng (không cần đăng nhập) &rarr;</a>
  </form>
  <a class="mo-bt" href="#/baitest">⚽ <b>Con chưa học 4YOU?</b> Làm bài test năng lực 2 phút, miễn phí, không cần đăng ký.</a>
  <div class="slogan">LET'S DO IT</div>
@@ -419,7 +424,7 @@ html.nhung .tran.le{background:#fffaf0;border-color:#ecd28a}
 <main id="app"><p class="trong">Đang tải...</p></main>
 <footer><img src="logo.png" alt=""><br>Trung tâm Bóng đá <b>4YOU SPORT</b> Nghệ An<br>Hotline <b id="hl"></b>
 <div class="lk-tde">LIÊN KẾT NHANH</div>
-<div class="lk"><a href="https://www.facebook.com/TTbongda.4you/" target="_blank" rel="noopener">f&nbsp; Fanpage 4YOU</a><a href="https://zalo.me/0934411662" target="_blank" rel="noopener">💬 Nhắn Zalo</a><a href="tel:0934411662">☎ Gọi hotline</a><a href="https://4yousport.ygroupsport.com/" target="_blank" rel="noopener">⚽ Đăng ký học thử</a><a href="#/baitest">📝 Bài test 2 phút</a></div><span style="opacity:.7;font-size:12.5px">Bản xem trước nội bộ, cập nhật <span id="cn"></span>. Chỗ ghi "cần xác nhận" chưa được chốt.</span><div class="chu-to">LET'S DO IT</div></footer>
+<div class="lk"><a href="https://www.facebook.com/TTbongda.4you/" target="_blank" rel="noopener">f&nbsp; Fanpage 4YOU</a><a href="https://zalo.me/0934411662" target="_blank" rel="noopener">💬 Nhắn Zalo</a><a href="tel:0934411662">☎ Gọi hotline</a><a href="https://4yousport.ygroupsport.com/" target="_blank" rel="noopener">⚽ Đăng ký học thử</a><a href="#/baitest">📝 Bài test 2 phút</a></div><span style="opacity:.7;font-size:12.5px">Cập nhật <span id="cn"></span>.</span><div class="chu-to">LET'S DO IT</div></footer>
 <script>
 let D, $=s=>document.querySelector(s);
 const esc=s=>String(s??"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
@@ -511,7 +516,7 @@ function dsGiai(){
  const s=D.giai.filter(g=>g.trang_thai=="sap"),x=D.giai.filter(g=>g.trang_thai!="sap");
  return `<h2>Giải sắp diễn ra</h2><div class="luoi">${s.map(theGiai).join("")}</div>
  <h2>Giải đã kết thúc</h2><div class="luoi">${x.map(theGiai).join("")}</div>
- <div class="canh"><b>Cần bổ sung:</b> các giải cũ 2023-2026 (4YOUSPORT Cup nhiều mùa, U14 League, U14 Super Cup, 3x3, Summer Cup...) kèm kết quả để đưa vào kho giải.</div>`;
+ ${D.chiCon||D.khach?"":`<div class="canh"><b>Cần bổ sung:</b> các giải cũ 2023-2026 (4YOUSPORT Cup nhiều mùa, U14 League, U14 Super Cup, 3x3, Summer Cup...) kèm kết quả để đưa vào kho giải.</div>`}`;
 }
 
 /* ---------- trang giai ---------- */
@@ -525,8 +530,8 @@ function trangGiai(slug,tab){
  <div class="tt-giai"><div><span>Thời gian</span><b>${ngayGiai(g)}</b></div><div><span>Địa điểm</span><div>${esc(g.dia_diem)}</div></div>
  <div><span>Lứa</span><div>${g.lua.map(l=>esc(tenLua(l))+" (sinh "+nsLua(D.lua.find(x=>x.ma==l))+")").join("<br>")}</div></div></div>
  ${g.form&&g.trang_thai=="sap"?`<div class="nut-hang" style="margin-top:14px"><a class="btn" href="${esc(g.form)}" target="_blank" rel="noopener">Đăng ký thi đấu</a></div>`:""}</section>`;
- if(g.ghi_chu)h+=`<div class="canh">${esc(g.ghi_chu)}</div>`;
- if(g.can_xac_nhan)h+=`<div class="canh"><b>Đang chờ BTC xác nhận:</b><ul class="ds">${g.can_xac_nhan.map(x=>`<li>${esc(x)}</li>`).join("")}</ul></div>`;
+ if(g.ghi_chu&&!D.chiCon&&!D.khach)h+=`<div class="canh">${esc(g.ghi_chu)}</div>`;
+ if(g.can_xac_nhan&&!D.chiCon&&!D.khach)h+=`<div class="canh"><b>Đang chờ BTC xác nhận:</b><ul class="ds">${g.can_xac_nhan.map(x=>`<li>${esc(x)}</li>`).join("")}</ul></div>`;
  if(g.le_phi)h+=`<div class="luoi" style="margin-top:12px"><div class="the"><b>Lệ phí</b>${g.le_phi.map(r=>`<div class="mo">${esc(r[0])}: <b style="color:#fff">${esc(r[1])}</b></div>`).join("")}</div>
  <div class="the"><b>Thể thức</b><div class="mo">${esc(g.the_thuc)}</div></div>
  <div class="the"><b>Danh hiệu</b><ul class="ds mo">${g.danh_hieu.map(x=>`<li>${esc(x)}</li>`).join("")}</ul></div></div>`;
@@ -539,10 +544,10 @@ function trangGiai(slug,tab){
   const co=t.ba!=null&&t.bb!=null;
   h+=`<div class="tran"><div class="meta"><b>${t.gio}</b><span>${esc(t.vong)}${t.bang?" bảng "+t.bang:""}</span><span class="ma-tran">${esc(t.ma)}</span></div>
   <div class="dau"><div class="a">${esc(t.a)}</div><div class="ts ${co?"":"chua"}">${co?t.ba+" - "+t.bb:"VS"}</div><div class="b">${esc(t.b)}</div></div></div>`}}
- if(tabGiai=="doi"){h+=`<div class="luoi hai" style="margin-top:12px">${[...new Set(doi.map(d=>d.bang))].map(b=>`<div class="the bang-doi"><b>Bảng ${b}</b>${doi.filter(d=>d.bang==b).map(d=>`<div class="dong"><div style="flex:1"><b>${esc(d.ten)}</b> <span class="mo nho">${esc(d.ma)}</span><div class="thanh"><i style="width:${Math.min(100,100*d.so_be/(d.toi_da||10))}%"></i></div></div><span class="mo nho">${d.so_be}/${d.toi_da} bé</span></div>`).join("")}</div>`).join("")}</div>
+ if(tabGiai=="doi"){h+=`<div class="luoi hai" style="margin-top:12px">${[...new Set(doi.map(d=>d.bang))].map(b=>`<div class="the bang-doi"><b>Bảng ${b}</b>${doi.filter(d=>d.bang==b).map(d=>`<div class="dong"><div style="flex:1"><b>${esc(d.ten)}</b> <span class="mo nho">${esc(d.ma)}</span>${D.chiCon||D.khach?"":`<div class="thanh"><i style="width:${Math.min(100,100*d.so_be/(d.toi_da||10))}%"></i></div>`}</div>${D.chiCon||D.khach?"":`<span class="mo nho">${d.so_be}/${d.toi_da} bé</span>`}</div>`).join("")}</div>`).join("")}</div>
   <p class="mo nho" style="margin-top:12px">Danh sách cầu thủ từng đội sẽ hiện khi BTC nhập vào file quản lý giải (tên bé, SĐT phụ huynh che 3 số cuối).</p>`}
  if(tabGiai=="bxh"){h+=[...new Set(doi.map(d=>d.bang))].map(b=>{const rows=bxh(doi.filter(d=>d.bang==b),tr);
-  return `<h3>Bảng ${b}</h3><div class="bang-wrap"><table class="bxh"><tr><th class="so">#</th><th>Đội</th><th class="so">Tr</th><th class="so">T</th><th class="so">H</th><th class="so">B</th><th class="so an-dt">BT</th><th class="so an-dt">BB</th><th class="so">HS</th><th class="so">Đ</th></tr>${rows.map((r,i)=>`<tr class="${i==0?"vao":""}"><td class="so">${i+1}</td><td>${esc(r.ten)}</td><td class="so">${r.tr}</td><td class="so">${r.t}</td><td class="so">${r.h}</td><td class="so">${r.b}</td><td class="so an-dt">${r.bt}</td><td class="so an-dt">${r.bb}</td><td class="so">${r.bt-r.bb}</td><td class="so"><b>${r.d}</b></td></tr>`).join("")}</table></div>`}).join("")+`<p class="mo nho" style="margin-top:12px">Tr: trận, T/H/B: thắng/hoà/thua, HS: hiệu số, Đ: điểm. Tự tính khi BTC nhập tỉ số vào file quản lý giải. Thắng 3, hoà 1 (theo bảng điểm trong file BTC, cần xác nhận cách tính luân lưu). Nhất bảng vào bán kết.</p>`}
+  return `<h3>Bảng ${b}</h3><div class="bang-wrap"><table class="bxh"><tr><th class="so">#</th><th>Đội</th><th class="so">Tr</th><th class="so">T</th><th class="so">H</th><th class="so">B</th><th class="so an-dt">BT</th><th class="so an-dt">BB</th><th class="so">HS</th><th class="so">Đ</th></tr>${rows.map((r,i)=>`<tr class="${i==0?"vao":""}"><td class="so">${i+1}</td><td>${esc(r.ten)}</td><td class="so">${r.tr}</td><td class="so">${r.t}</td><td class="so">${r.h}</td><td class="so">${r.b}</td><td class="so an-dt">${r.bt}</td><td class="so an-dt">${r.bb}</td><td class="so">${r.bt-r.bb}</td><td class="so"><b>${r.d}</b></td></tr>`).join("")}</table></div>`}).join("")+`<p class="mo nho" style="margin-top:12px">Tr: trận, T/H/B: thắng/hoà/thua, HS: hiệu số, Đ: điểm. Tự tính khi BTC nhập tỉ số vào file quản lý giải. Thắng 3, hoà 1${D.chiCon||D.khach?"":" (theo bảng điểm trong file BTC, cần xác nhận cách tính luân lưu)"}. Nhất bảng vào bán kết.</p>`}
  if(tabGiai=="vinh")h+=vinhDanh(g,luaGiai)||'<p class="trong">Chưa có kết quả.</p>';
  if(tabGiai=="nhanh"){const v=x=>tr.filter(t=>t.vong==x);
   const cot=(ten,ds)=>`<div class="cot"><h4>${ten}</h4>${ds.map(t=>`<div class="cap"><div class="m">${esc(t.ma)} &middot; ${thu(t.ngay)} ${fd(t.ngay).slice(0,5)} &middot; ${t.gio}</div><div class="d"><span>${esc(t.a)}</span><b>${t.ba??""}</b></div><div class="d"><span>${esc(t.b)}</span><b>${t.bb??""}</b></div></div>`).join("")||'<p class="mo nho">Chưa có trận.</p>'}</div>`;
@@ -871,15 +876,16 @@ async function giaiMa(mk){
 }
 /* ---------- ban phu huynh: moi SDT 1 goi ma hoa rieng trong ph/<ky tu dau the>.json, chi chua con cua so do ---------- */
 let CHE="ph";
+(()=>{const y=new Date().getFullYear(),e=document.getElementById("nam");if(e)e.innerHTML='<option value="">Chọn năm sinh</option>'+Array.from({length:30},(_,j)=>y-3-j).map(n=>`<option>${n}</option>`).join("")})();
 function cheDo(c){CHE=c;$("#tph").classList.toggle("on",c=="ph");$("#tnb").classList.toggle("on",c=="nb");const i=$("#mk");i.value="";$("#loidn").textContent="";
- if(c=="ph"){$("#nhan").textContent="Số điện thoại phụ huynh";i.type="tel";i.inputMode="tel";i.autocomplete="tel";i.placeholder="Ví dụ 0912345678";$("#hienmk").style.display="none";$("#ghidn").textContent="Nhập đúng số điện thoại đã đăng ký học ở 4YOU để xem hồ sơ và điểm năng lực của con. Mỗi số chỉ mở được hồ sơ của con mình."}
- else{$("#nhan").textContent="Mã truy cập nội bộ";i.type="password";i.inputMode="text";i.autocomplete="current-password";i.placeholder="Nhập mã 4YOU cấp";$("#hienmk").style.display="";$("#hienmk").textContent="Hiện";$("#ghidn").textContent="Dành cho HLV và nhân viên 4YOU. Dữ liệu được mã hoá, chỉ mở được khi có mã truy cập."}
+ if(c=="ph"){$("#nhan").textContent="Số điện thoại phụ huynh";i.type="tel";i.inputMode="tel";i.autocomplete="tel";i.placeholder="Ví dụ 0912345678";$("#hienmk").style.display="none";$("#onam").style.display="";$("#ghidn").textContent="Nhập số điện thoại đã đăng ký học ở 4YOU và năm sinh của con. Người khác biết số điện thoại mà không đúng năm sinh thì không mở được hồ sơ."}
+ else{$("#nhan").textContent="Mã truy cập nội bộ";i.type="password";i.inputMode="text";i.autocomplete="current-password";i.placeholder="Nhập mã 4YOU cấp";$("#hienmk").style.display="";$("#hienmk").textContent="Hiện";$("#onam").style.display="none";$("#ghidn").textContent="Dành cho HLV và nhân viên 4YOU. Dữ liệu được mã hoá, chỉ mở được khi có mã truy cập."}
  i.focus()}
 function chuanSdt(x){let s=String(x||"").replace(/\D/g,"");if(s.startsWith("84")&&s.length==11)s="0"+s.slice(2);if(s.length==9&&s[0]!="0")s="0"+s;return s.length==10?s:""}
 let CHUNG=null;
-async function moSdt(sdt){
+async function moSdt(sdt,nam){
  if(!CHUNG)CHUNG=await fetch("./ph/chung.json",{cache:"no-store"}).then(r=>{if(!r.ok)throw 0;return r.json()});
- const k0=await crypto.subtle.importKey("raw",new TextEncoder().encode(sdt),"PBKDF2",false,["deriveBits"]);
+ const k0=await crypto.subtle.importKey("raw",new TextEncoder().encode(sdt+"|"+nam),"PBKDF2",false,["deriveBits"]);
  const bits=new Uint8Array(await crypto.subtle.deriveBits({name:"PBKDF2",salt:b64(CHUNG.salt),iterations:CHUNG.lap,hash:"SHA-256"},k0,512));
  const the=[...new Uint8Array(await crypto.subtle.digest("SHA-256",bits.slice(32)))].map(x=>x.toString(16).padStart(2,"0")).join("").slice(0,16);
  const tui=await fetch("./ph/"+the[0]+".json",{cache:"no-store"}).then(r=>{if(!r.ok)throw 0;return r.json()});
@@ -891,19 +897,26 @@ async function moSdt(sdt){
 function trangCon(){
  return `<h2>Các con của tôi<small>Bấm vào tên con để xem hồ sơ và điểm năng lực</small></h2><div class="ds-hv">${D.hoc_vien.map(h=>`<a class="hang-hv khong-hang" href="#/hv/${h.ma}"><div class="tt"><b>${esc(h.ten)}</b> <span class="tag">${h.lua?esc(tenLua(h.lua)):"Chưa xếp lứa"}</span>${h.nghi?`<span class="tag nghi">Đã nghỉ</span>`:""}<small>${phu(h)}</small></div><div class="diem-o">${h.diem!=null?`<b>${h.diem}</b><small>${h.hang?"hạng "+h.hang:""}</small>`:`<span class="tag chua">Chưa chấm</span>`}</div></a>`).join("")}</div>`;
 }
-function moWeb(d){D=d;hvTinh();document.body.classList.toggle("ph",!!d.chiCon);$("#navhome").textContent=d.chiCon?(d.hoc_vien.length>1?"Các con":"Hồ sơ của con"):"Trang chủ";$("#hl").textContent=d.hotline;$("#cn").textContent=d.cap_nhat;document.body.classList.remove("khoa");cu=location.hash;ve()}
+/* che do khach (31/10/2026): giai dau, lua tuoi, cach cham xem khong can dang nhap; du lieu chung o ph/chung.json (khong co hoc vien) */
+const CONG_KHAI=["giai","lua","cachcham"];
+const laCongKhai=()=>CONG_KHAI.includes(location.hash.replace(/^#\/?/,"").split("/")[0]);
+async function moKhach(){try{if(!CHUNG)CHUNG=await fetch("./ph/chung.json",{cache:"no-store"}).then(r=>{if(!r.ok)throw 0;return r.json()});moWeb({...CHUNG.chung,hoc_vien:[],khach:true})}catch(_){$("#loidn").textContent="Không tải được dữ liệu, kiểm tra mạng rồi thử lại."}}
+addEventListener("hashchange",()=>{if(D&&D.khach&&!laCongKhai()){D=null;document.body.classList.remove("khach");document.body.classList.add("khoa")}else if(!D&&laCongKhai()&&document.body.classList.contains("khoa"))moKhach()});
+function moWeb(d){D=d;hvTinh();document.body.classList.toggle("ph",!!d.chiCon);document.body.classList.toggle("khach",!!d.khach);$(".thoat").textContent=d.khach?"Đăng nhập":"Đăng xuất";$("#navhome").textContent=d.chiCon?(d.hoc_vien.length>1?"Các con":"Hồ sơ của con"):"Trang chủ";$("#hl").textContent=d.hotline;$("#cn").textContent=d.cap_nhat;document.body.classList.remove("khoa");cu=location.hash;ve()}
 async function dangNhap(e){
  e&&e.preventDefault();const v=$("#mk").value.trim(),nut=$("#nutdn"),loi=$("#loidn");if(!v)return;
+ const nam=$("#nam").value;
  if(CHE=="ph"&&!chuanSdt(v)){loi.textContent="Số điện thoại cần đủ 10 số, ví dụ 0912345678.";return}
+ if(CHE=="ph"&&!nam){loi.textContent="Chọn năm sinh của con.";return}
  nut.disabled=true;nut.textContent="Đang mở...";loi.textContent="";
- try{const d=CHE=="ph"?await moSdt(chuanSdt(v)):await giaiMa(v);try{localStorage.setItem(KHOA,CHE=="ph"?"ph:"+chuanSdt(v):v)}catch(_){}location.hash="#/";moWeb(d)}
- catch(x){loi.textContent=CHE=="ph"?(x=="khong"?"Chưa thấy hồ sơ với số này. Phụ huynh kiểm tra lại số đã đăng ký học hoặc nhắn hotline 4YOU.":"Không tải được dữ liệu, kiểm tra mạng rồi thử lại."):(GOI?"Mã truy cập chưa đúng, thử lại nhé.":"Không tải được dữ liệu, kiểm tra mạng rồi thử lại.");const f=$("#fdn");f.classList.remove("lac");void f.offsetWidth;f.classList.add("lac")}
+ try{const d=CHE=="ph"?await moSdt(chuanSdt(v),nam):await giaiMa(v);try{localStorage.setItem(KHOA,CHE=="ph"?"ph:"+chuanSdt(v)+"|"+nam:v)}catch(_){}location.hash="#/";moWeb(d)}
+ catch(x){loi.textContent=CHE=="ph"?(x=="khong"?"Chưa thấy hồ sơ khớp số điện thoại và năm sinh này. Phụ huynh kiểm tra lại, hoặc nhắn hotline 4YOU để cập nhật năm sinh của con.":"Không tải được dữ liệu, kiểm tra mạng rồi thử lại."):(GOI?"Mã truy cập chưa đúng, thử lại nhé.":"Không tải được dữ liệu, kiểm tra mạng rồi thử lại.");const f=$("#fdn");f.classList.remove("lac");void f.offsetWidth;f.classList.add("lac")}
  nut.disabled=false;nut.textContent="Đăng nhập";
 }
-function dangXuat(){try{localStorage.removeItem(KHOA)}catch(_){}D=null;$("#app").innerHTML="";$("#mk").value="";document.body.classList.add("khoa");document.body.classList.remove("ph");scrollTo(0,0)}
+function dangXuat(){if(D&&D.khach){D=null;document.body.classList.remove("khach");document.body.classList.add("khoa");return}try{localStorage.removeItem(KHOA)}catch(_){}D=null;$("#app").innerHTML="";$("#mk").value="";document.body.classList.add("khoa");document.body.classList.remove("ph");scrollTo(0,0)}
 (async()=>{let mk="";try{mk=localStorage.getItem(KHOA)||""}catch(_){}
- if(mk){try{moWeb(mk.startsWith("ph:")?await moSdt(mk.slice(3)):await giaiMa(mk));return}catch(_){try{localStorage.removeItem(KHOA)}catch(__){}}}
- $("#mk").focus()})();
+ if(mk){try{if(mk.startsWith("ph:")&&mk.indexOf("|")<0)throw 0;moWeb(mk.startsWith("ph:")?await moSdt(...mk.slice(3).split("|")):await giaiMa(mk));return}catch(_){try{localStorage.removeItem(KHOA)}catch(__){}}}
+ if(laCongKhai())moKhach();else $("#mk").focus()})();
 </script>
 <script>/* ghep website: mo san tab noi bo khi ?che=nb */
 (function(){var q=new URLSearchParams(location.search);if(q.get("che")=="nb"&&document.body.classList.contains("khoa"))cheDo("nb")})();

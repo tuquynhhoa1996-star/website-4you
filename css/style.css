@@ -208,3 +208,41 @@ footer.co-anh{background-color:#052611;background-image:linear-gradient(180deg,r
 .pagehead.co-anh:after{background:linear-gradient(180deg,rgba(8,56,26,.08) 0%,rgba(8,56,26,.25) 32%,rgba(8,56,26,.8) 58%,rgba(5,30,12,.95) 100%)}
 .vtop.co-anh:after{background:linear-gradient(180deg,rgba(8,56,26,.25) 0%,rgba(8,56,26,.7) 45%,rgba(5,30,12,.93) 75%)}
 @media(min-width:900px){.pagehead.co-anh{min-height:360px}.pagehead.co-anh:after{background:linear-gradient(90deg,rgba(5,30,12,.93) 0%,rgba(8,56,26,.8) 40%,rgba(8,56,26,.2) 75%,rgba(8,56,26,.05) 100%)}.pagehead.co-anh .wrap>*{max-width:620px}}
+
+/* ===== 31/10/2026: sửa theo bảng góp ý ===== */
+/* Biểu tượng SVG thay emoji */
+.ic{display:inline-block;vertical-align:middle}
+.ico .ic{width:34px;height:34px;color:var(--g)}.dark .ico .ic,.co-anh .ico .ic{color:var(--y)}
+.pts i .ic,.contact i .ic{width:22px;height:22px}
+.dock a span .ic{width:20px;height:20px}
+/* Nút Đăng ký học thử nổi bật trên đầu trang */
+.hcta{margin-left:auto;background:var(--y);color:var(--gdd)!important;font-weight:900;text-decoration:none;border-radius:999px;padding:9px 16px;font-size:14px;white-space:nowrap;box-shadow:0 2px 0 rgba(0,0,0,.25)}
+.hcta:hover{filter:brightness(1.05)}
+@media(max-width:420px){.hcta{padding:8px 11px;font-size:13px}.brand small{display:none}}
+/* Menu 7 mục, nhóm Giới thiệu có mục con */
+nav.menu .nhom{position:relative}
+nav.menu .nhom-con{display:none}
+@media(min-width:1100px){
+ .burger{display:none!important}
+ nav.menu{display:flex!important;position:static!important;flex-direction:row!important;padding:0!important;background:none!important;order:2}
+ .top .wrap{gap:14px}.hcta{order:3;margin-left:6px}.brand{margin-right:auto}
+ nav.menu a{font-size:14px;padding:7px 9px}
+ nav.menu .nhom-con{position:absolute;top:100%;left:0;min-width:220px;background:var(--gdd);border:1px solid rgba(255,255,255,.12);border-radius:12px;padding:6px;flex-direction:column;box-shadow:0 10px 24px rgba(0,0,0,.3)}
+ nav.menu .nhom:hover .nhom-con,nav.menu .nhom:focus-within .nhom-con{display:flex}
+}
+@media(max-width:1099px){
+ .burger{display:block}
+ nav.menu{display:none;position:absolute;top:62px;left:0;right:0;background:var(--gdd);flex-direction:column;padding:8px 12px 16px;max-height:calc(100vh - 62px);overflow:auto}
+ nav.menu.open{display:flex}nav.menu a{font-size:16px;padding:12px}
+ nav.menu .nhom-con{display:flex;flex-direction:column;padding-left:14px;border-left:2px solid rgba(255,255,255,.15);margin-left:12px}
+ nav.menu .nhom-con a{font-size:15px;padding:9px 12px;color:#cfe8d5}
+}
+/* Máy tính: bỏ thanh liên hệ nổi (che nội dung), đã có nút Đăng ký trên đầu trang */
+@media(min-width:900px){.dock{display:none}body{padding-bottom:0}}
+/* Xem ảnh lớn: có nút đóng, chuyển ảnh */
+.lb .lb-x,.lb .lb-n{position:absolute;background:rgba(255,255,255,.14);color:#fff;border:0;border-radius:999px;font-size:26px;width:46px;height:46px;cursor:pointer}
+.lb .lb-x{top:14px;right:14px}.lb .lb-p{left:10px;top:50%}.lb .lb-s{right:10px;top:50%}
+/* Trang chủ: nút đăng ký lên ngay dưới lời giới thiệu, ảnh đầu thấp hơn trên điện thoại để màn hình đầu thấy đủ chữ + nút */
+.hero .wrap{display:flex;flex-direction:column}.hero .stats{order:5}.hero .slogan{order:6}.hero .cta-row{margin:6px 0 18px}
+@media(max-width:899px){.hero .hpic{height:min(62vw,300px)}.hero .wrap{margin-top:-28px}.hero h1{font-size:clamp(26px,7.4vw,40px)}.hero .sub{font-size:16px}}
+nav.menu{align-items:center}
