@@ -246,3 +246,10 @@ nav.menu .nhom-con{display:none}
 .hero .wrap{display:flex;flex-direction:column}.hero .stats{order:5}.hero .slogan{order:6}.hero .cta-row{margin:6px 0 18px}
 @media(max-width:899px){.hero .hpic{height:min(62vw,300px)}.hero .wrap{margin-top:-28px}.hero h1{font-size:clamp(26px,7.4vw,40px)}.hero .sub{font-size:16px}}
 nav.menu{align-items:center}
+/* Menu điện thoại: căn trái thẳng hàng, mục cách nhau bằng đường kẻ, không bị thanh liên hệ dưới che (31/10/2026) */
+@media(max-width:1099px){
+ nav.menu{align-items:stretch;padding:6px 16px 90px;max-height:calc(100dvh - 62px);box-shadow:0 14px 28px rgba(0,0,0,.35)}
+ nav.menu>a,nav.menu .nhom-t{display:block;text-align:left;padding:13px 4px;border-bottom:1px solid rgba(255,255,255,.08);border-radius:0}
+ nav.menu .nhom-con{margin:4px 0 6px 6px;padding-left:12px}
+ nav.menu .nhom-con a{display:block;text-align:left;padding:9px 6px}
+}
