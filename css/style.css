@@ -253,3 +253,23 @@ nav.menu{align-items:center}
  nav.menu .nhom-con{margin:4px 0 6px 6px;padding-left:12px}
  nav.menu .nhom-con a{display:block;text-align:left;padding:9px 6px}
 }
+/* Thanh menu luôn hiện, bỏ nút ba gạch (chị Hoa góp ý 31/10/2026: nhiều phụ huynh không bấm ba gạch, làm giống web Italy).
+   Dưới 1100px: hàng 1 logo + nút Đăng ký học thử, hàng 2 dải menu vuốt ngang, mục con của Giới thiệu bày thẳng ra. Điểm năng lực đứng đầu, viền vàng. */
+@media(max-width:1099px){
+  .burger{display:none!important}
+  .top .wrap{flex-wrap:wrap;height:auto;min-height:62px;padding-top:8px;padding-bottom:0;row-gap:4px}
+  .brand{order:1}.hcta{order:2;margin-left:auto}
+  nav.menu{display:flex!important;order:3;flex:0 0 100%;width:100%;position:static!important;flex-direction:row!important;flex-wrap:nowrap;align-items:center!important;gap:6px;margin:0!important;padding:4px 28px 10px 0!important;max-height:none!important;overflow-x:auto;overflow-y:hidden;background:none!important;box-shadow:none!important;scrollbar-width:none;-webkit-overflow-scrolling:touch;-webkit-mask-image:linear-gradient(90deg,#000 calc(100% - 36px),transparent);mask-image:linear-gradient(90deg,#000 calc(100% - 36px),transparent)}
+  nav.menu::-webkit-scrollbar{display:none}
+  nav.menu .nhom,nav.menu .nhom-con{display:contents!important}
+  nav.menu .nhom-t{display:none!important}
+  nav.menu>a,nav.menu .nhom-con a{display:inline-block!important;flex:0 0 auto;white-space:nowrap;font-size:14px!important;line-height:1.2;padding:7px 13px!important;margin:0!important;border:1px solid rgba(255,255,255,.28)!important;border-radius:999px!important;color:#fff!important;background:rgba(255,255,255,.06);text-decoration:none;text-align:center}
+  nav.menu a.on{background:var(--y)!important;color:var(--gdd)!important;border-color:var(--y)!important;font-weight:800}
+}
+nav.menu a.noi-bat{border:1.5px solid var(--y)!important;color:var(--y)!important;font-weight:800}
+nav.menu a.noi-bat.on{color:var(--gdd)!important;background:var(--y)!important}
+@media(min-width:1100px){nav.menu a.noi-bat{border-radius:999px;padding:6px 12px}}
+/* Trang chủ: thẻ Điểm năng lực đứng đầu 6 lý do, nổi bật hơn */
+.card.why-dnl{outline:2px solid var(--y);outline-offset:-2px}
+.card.why-dnl .btn{margin-top:10px;display:inline-block}
+@media(max-width:360px){.brand{font-size:15px;gap:7px}.brand img{height:36px}.hcta{padding:7px 10px;font-size:12.5px}}
